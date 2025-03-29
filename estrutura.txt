@@ -1,0 +1,65 @@
+.
+├── README.md
+├── babel.config.js
+├── cypress.config.ts
+├── eslint.config.mjs
+├── estrutura.txt
+├── jest.config.cjs
+├── jest.setup.js
+├── next-env.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── pages
+│   ├── api
+│   │   └── auth
+│   ├── auth
+│   │   ├── callback.tsx
+│   │   └── error.js
+│   ├── dashboard.tsx
+│   └── login.tsx
+├── postcss.config.mjs
+├── public
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── src
+│   ├── app
+│   │   ├── api
+│   │   ├── dashboard
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── login
+│   │   ├── page.tsx
+│   │   └── providers.tsx
+│   ├── components
+│   │   └── LogoutButton.tsx
+│   ├── config
+│   ├── context
+│   ├── features
+│   │   ├── decks
+│   │   ├── matches
+│   │   └── stats
+│   ├── hooks
+│   ├── lib
+│   │   ├── getUsers.ts
+│   │   ├── supabase.ts
+│   │   └── supabaseAdmin.ts
+│   ├── pages
+│   │   └── auth
+│   ├── scripts
+│   │   └── testSupabase.ts
+│   ├── styles
+│   │   └── globals.css
+│   ├── tests
+│   │   └── App.test.tsx
+│   ├── types
+│   └── utils
+├── tailwind.config.mjs
+├── test-email.js
+└── tsconfig.json
+
+27 directories, 36 files
