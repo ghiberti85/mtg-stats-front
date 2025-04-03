@@ -1,6 +1,7 @@
 // src/components/Layout.tsx
 import Link from 'next/link'
 import { ReactNode } from 'react'
+import LogoutButton from './LogoutButton'
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -17,6 +18,8 @@ export default function Layout({ children }: { children: ReactNode }) {
             <Link href="/dashboard" className="hover:text-blue-400">
               Dashboard
             </Link>
+            <LogoutButton />
+
             {/* Exemplo: <Link href="/matches" className="hover:text-blue-400">Matches</Link> */}
           </nav>
         </div>
