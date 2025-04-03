@@ -1,11 +1,11 @@
 .
 ├── README.md
-├── babel.config.js
 ├── cypress.config.ts
 ├── eslint.config.mjs
 ├── estrutura.txt
 ├── jest.config.cjs
 ├── jest.setup.js
+├── mtg-stats-kanban.md
 ├── next-env.d.ts
 ├── next.config.ts
 ├── package-lock.json
@@ -17,6 +17,7 @@
 │   │   ├── callback.tsx
 │   │   └── error.js
 │   ├── dashboard.tsx
+│   ├── index.tsx
 │   └── login.tsx
 ├── postcss.config.mjs
 ├── public
@@ -25,16 +26,8 @@
 │   ├── next.svg
 │   ├── vercel.svg
 │   └── window.svg
+├── register-user.js
 ├── src
-│   ├── app
-│   │   ├── api
-│   │   ├── dashboard
-│   │   ├── favicon.ico
-│   │   ├── globals.css
-│   │   ├── layout.tsx
-│   │   ├── login
-│   │   ├── page.tsx
-│   │   └── providers.tsx
 │   ├── components
 │   │   └── LogoutButton.tsx
 │   ├── config
@@ -48,18 +41,11 @@
 │   │   ├── getUsers.ts
 │   │   ├── supabase.ts
 │   │   └── supabaseAdmin.ts
-│   ├── pages
-│   │   └── auth
-│   ├── scripts
-│   │   └── testSupabase.ts
-│   ├── styles
-│   │   └── globals.css
 │   ├── tests
 │   │   └── App.test.tsx
 │   ├── types
 │   └── utils
 ├── tailwind.config.mjs
-├── test-email.js
 └── tsconfig.json
 
-27 directories, 36 files
+19 directories, 30 files
