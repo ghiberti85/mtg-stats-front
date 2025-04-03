@@ -1,8 +1,7 @@
-// pages/decks.tsx
+// pages/settings.tsx
 import { GetServerSidePropsContext } from 'next'
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import Layout from '@/components/Layout'
-import LogoutButton from '@/components/LogoutButton'
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const supabase = createPagesServerClient(ctx)
@@ -24,20 +23,20 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   }
 }
 
-export default function Decks() {
+export default function Settings() {
   return (
     <Layout>
       <div className="max-w-4xl mx-auto mt-10 text-white">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-white">Decks</h1>
-          <LogoutButton />
-        </div>
-        <p className="text-gray-300 mb-6">
-          Aqui você verá os decks usados nas partidas.
+        <h1 className="text-3xl font-bold mb-4">Configurações</h1>
+        <p className="text-gray-400 mb-6">
+          Ajuste preferências de idioma, notificações e configurações gerais da
+          sua conta.
         </p>
 
-        <div className="mt-6 p-6 bg-gray-800 border border-gray-700 rounded-lg">
-          <p>🔧 Em breve: estatísticas detalhadas dos seus decks.</p>
+        <div className="p-6 bg-gray-800 border border-gray-700 rounded-lg">
+          <p className="text-gray-300">
+            ⚙️ Configurações avançadas estarão disponíveis em breve.
+          </p>
         </div>
       </div>
     </Layout>
