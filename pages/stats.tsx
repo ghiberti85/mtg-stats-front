@@ -28,7 +28,7 @@ export default function Stats() {
     <Layout>
       <div className="max-w-4xl mx-auto mt-10 text-white">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-white">📊 Estatísticas</h1>
+          <h1 className="text-3xl font-bold text-white">Estatísticas</h1>
           <LogoutButton />
         </div>
         <p className="text-gray-400">

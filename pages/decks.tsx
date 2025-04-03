@@ -37,7 +37,7 @@ export default function Decks() {
         </p>
 
         <div className="mt-6 p-6 bg-gray-800 border border-gray-700 rounded-lg">
-          <p>🔧 Em breve: estatísticas detalhadas dos seus decks.</p>
+          <p>🎴 Em breve: estatísticas detalhadas dos seus decks.</p>
         </div>
       </div>
     </Layout>

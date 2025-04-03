@@ -37,10 +37,10 @@ export default function Profile({ email }: { email: string }) {
 
         <div className="bg-gray-800 rounded-xl p-6 shadow-lg text-gray-200">
           <p>
-            <strong>Email cadastrado:</strong> {email}
+            <strong>✉️ Email cadastrado:</strong> {email}
           </p>
           <p className="mt-2 text-gray-400">
-            Funcionalidade de edição será adicionada em breve.
+            👤 Funcionalidade de edição será adicionada em breve.
           </p>
         </div>
       </div>
