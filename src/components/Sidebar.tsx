@@ -1,12 +1,22 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Home, BarChart2, Layers, List, BadgeHelp } from 'lucide-react'
+import {
+  Home,
+  BarChart2,
+  Layers,
+  List,
+  BadgeHelp,
+  LucideFileText,
+  CogIcon,
+} from 'lucide-react'
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: <Home size={20} /> },
-  { href: '/matches', label: 'Matches', icon: <List size={20} /> },
+  { href: '/matches', label: 'Partidas', icon: <List size={20} /> },
   { href: '/decks', label: 'Decks', icon: <Layers size={20} /> },
   { href: '/stats', label: 'Estatísticas', icon: <BarChart2 size={20} /> },
+  { href: '/profile', label: 'Perfil', icon: <LucideFileText size={20} /> },
+  { href: '/settings', label: 'Configurações', icon: <CogIcon size={20} /> },
   { href: '/help', label: 'Ajuda', icon: <BadgeHelp size={20} /> },
 ]
 
