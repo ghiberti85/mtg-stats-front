@@ -2,7 +2,6 @@
 import { GetServerSidePropsContext } from 'next'
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import Layout from '@/components/Layout'
-import LogoutButton from '@/components/LogoutButton'
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const supabase = createPagesServerClient(ctx)
@@ -29,7 +28,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 export default function Settings() {
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto mt-10 text-white">
+      <div className="max-w-4xl mx-auto mt-10 text-white">
         <h1 className="text-3xl font-bold mb-4">Configurações</h1>
         <p className="text-gray-400 mb-8">
           Gerencie suas preferências da conta
@@ -50,10 +49,6 @@ export default function Settings() {
             <span className="text-sm text-gray-500 italic">
               🇧🇷 Português (futuro: i18n)
             </span>
-          </div>
-
-          <div className="mt-6">
-            <LogoutButton />
           </div>
         </div>
       </div>

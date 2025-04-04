@@ -2,7 +2,6 @@
 import { GetServerSidePropsContext } from 'next'
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import Layout from '@/components/Layout'
-import LogoutButton from '@/components/LogoutButton'
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const supabase = createPagesServerClient(ctx)
@@ -30,7 +29,6 @@ export default function Decks() {
       <div className="max-w-4xl mx-auto mt-10 text-white">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-white">Decks</h1>
-          <LogoutButton />
         </div>
         <p className="text-gray-300 mb-6">
           Aqui você verá os decks usados nas partidas.

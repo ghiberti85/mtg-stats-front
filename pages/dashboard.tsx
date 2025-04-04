@@ -2,7 +2,6 @@ import { GetServerSidePropsContext } from 'next'
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import { useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import LogoutButton from '@/components/LogoutButton'
 import Layout from '@/components/Layout'
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
@@ -52,7 +51,6 @@ export default function Dashboard({ email }: { email: string }) {
           <p className="text-lg text-gray-300 mb-8">
             Você está logado com sucesso!
           </p>
-          <LogoutButton />
         </div>
       </div>
     </Layout>

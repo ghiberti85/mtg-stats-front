@@ -1,48 +1,67 @@
 // pages/matches.tsx
-import { GetServerSidePropsContext } from 'next'
-import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import Layout from '@/components/Layout'
-import LogoutButton from '@/components/LogoutButton'
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const supabase = createPagesServerClient(ctx)
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+const mockMatches = [
+  {
+    id: 1,
+    date: '01/04/2025',
+    deck: 'Mono Red Aggro',
+    opponent: 'PlayerX',
+    result: 'Vitória',
+  },
+  {
+    id: 2,
+    date: '30/03/2025',
+    deck: 'Dimir Control',
+    opponent: 'PlayerY',
+    result: 'Derrota',
+  },
+  {
+    id: 3,
+    date: '28/03/2025',
+    deck: 'Selesnya Enchantments',
+    opponent: 'PlayerZ',
+    result: 'Vitória',
+  },
+]
 
-  if (!user) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {
-      email: user.email,
-    },
-  }
-}
-
-export default function Matches({ email }: { email: string }) {
+export default function MatchesPage() {
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto mt-10 text-white">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-white">Partidas</h1>
-          <LogoutButton />
-        </div>
-        <p className="text-gray-400 mb-4">
-          Bem-vindo, {email}! Aqui você poderá visualizar suas partidas.
-        </p>
-
-        {/* Placeholder para dados futuros */}
-        <div className="mt-6 p-6 bg-gray-800 border border-gray-700 rounded-lg">
-          <p>
-            📌 Em breve: histórico de partidas, filtros e análises detalhadas.
-          </p>
+      <div className="max-w-4xl mx-auto mt-10 px-4 text-white">
+        <h1 className="text-3xl font-bold mb-6">Histórico de Partidas</h1>
+        <div className="overflow-x-auto bg-gray-900 rounded-xl shadow">
+          <table className="min-w-full table-auto border-collapse">
+            <thead>
+              <tr className="bg-gray-800 text-gray-300">
+                <th className="px-6 py-3 text-left">Data</th>
+                <th className="px-6 py-3 text-left">Deck</th>
+                <th className="px-6 py-3 text-left">Oponente</th>
+                <th className="px-6 py-3 text-left">Resultado</th>
+              </tr>
+            </thead>
+            <tbody>
+              {mockMatches.map((match) => (
+                <tr
+                  key={match.id}
+                  className="border-t border-gray-700 hover:bg-gray-800 transition"
+                >
+                  <td className="px-6 py-4">{match.date}</td>
+                  <td className="px-6 py-4">{match.deck}</td>
+                  <td className="px-6 py-4">{match.opponent}</td>
+                  <td
+                    className={`px-6 py-4 font-semibold ${
+                      match.result === 'Vitória'
+                        ? 'text-green-400'
+                        : 'text-red-400'
+                    }`}
+                  >
+                    {match.result}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </Layout>

@@ -4,7 +4,7 @@ import Layout from '@/components/Layout'
 export default function HelpPage() {
   return (
     <Layout>
-      <div className="max-w-3xl mx-auto text-white">
+      <div className="max-w-4xl mx-auto mt-10 text-white">
         <h1 className="text-3xl font-bold mb-6">Ajuda & Suporte</h1>
 
         <p className="mb-4">
