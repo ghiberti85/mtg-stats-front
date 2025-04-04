@@ -1,103 +1,67 @@
-import { useState } from 'react'
 import Layout from '@/components/Layout'
 
-type Match = {
-  id: string
-  format: string
-  result: 'Vitória' | 'Derrota'
-  deck: string
-  date: string
-}
-
-const mockMatches: Match[] = [
+const matches = [
   {
-    id: '1',
+    id: 1,
+    date: '2025-03-20',
+    deck: 'Izzet Phoenix',
     format: 'Modern',
     result: 'Vitória',
-    deck: 'Mono Red Aggro',
-    date: '2025-03-10',
+    opponent: 'João M.',
   },
   {
-    id: '2',
+    id: 2,
+    date: '2025-03-18',
+    deck: 'Mono Red Aggro',
     format: 'Standard',
     result: 'Derrota',
-    deck: 'Azorius Control',
-    date: '2025-03-08',
+    opponent: 'Carlos S.',
   },
   {
-    id: '3',
-    format: 'Modern',
+    id: 3,
+    date: '2025-03-16',
+    deck: 'Jeskai Control',
+    format: 'Pioneer',
     result: 'Vitória',
-    deck: 'Rakdos Midrange',
-    date: '2025-03-05',
+    opponent: 'Bruna K.',
   },
 ]
 
 export default function MatchesPage() {
-  const [formatFilter, setFormatFilter] = useState('')
-  const [resultFilter, setResultFilter] = useState('')
-
-  const filteredMatches = mockMatches.filter((match) => {
-    return (
-      (formatFilter === '' || match.format === formatFilter) &&
-      (resultFilter === '' || match.result === resultFilter)
-    )
-  })
-
   return (
     <Layout>
       <div className="max-w-4xl mx-auto px-4 py-10">
-        <h1 className="text-3xl font-bold text-white mb-6">
-          Histórico de Partidas
-        </h1>
+        <h1 className="text-3xl font-bold text-white mb-8">Partidas</h1>
 
-        <div className="flex flex-wrap gap-4 mb-6">
-          <select
-            className="bg-gray-800 text-white p-2 rounded"
-            value={formatFilter}
-            onChange={(e) => setFormatFilter(e.target.value)}
-          >
-            <option value="">Todos os formatos</option>
-            <option value="Standard">Standard</option>
-            <option value="Modern">Modern</option>
-          </select>
-
-          <select
-            className="bg-gray-800 text-white p-2 rounded"
-            value={resultFilter}
-            onChange={(e) => setResultFilter(e.target.value)}
-          >
-            <option value="">Todos os resultados</option>
-            <option value="Vitória">Vitória</option>
-            <option value="Derrota">Derrota</option>
-          </select>
-        </div>
-
-        <ul className="space-y-4">
-          {filteredMatches.map((match) => (
-            <li
+        <div className="space-y-4">
+          {matches.map((match) => (
+            <div
               key={match.id}
-              className="p-4 bg-gray-900 rounded shadow flex flex-col md:flex-row md:items-center justify-between"
+              className="bg-gray-900 rounded-xl p-4 shadow hover:bg-gray-800 transition"
             >
-              <div>
-                <p className="text-white font-semibold">{match.deck}</p>
-                <p className="text-gray-400 text-sm">
-                  Formato: {match.format} •{' '}
-                  {new Date(match.date).toLocaleDateString()}
-                </p>
+              <div className="flex justify-between items-center text-white">
+                <div>
+                  <p className="text-lg font-semibold">{match.deck}</p>
+                  <p className="text-sm text-gray-400">
+                    {match.format} • {match.date}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p
+                    className={`text-sm font-bold ${
+                      match.result === 'Vitória'
+                        ? 'text-green-400'
+                        : 'text-red-400'
+                    }`}
+                  >
+                    {match.result}
+                  </p>
+                  <p className="text-sm text-gray-300">vs {match.opponent}</p>
+                </div>
               </div>
-              <span
-                className={`text-sm font-semibold px-3 py-1 rounded mt-2 md:mt-0 ${
-                  match.result === 'Vitória'
-                    ? 'bg-green-600 text-white'
-                    : 'bg-red-600 text-white'
-                }`}
-              >
-                {match.result}
-              </span>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </Layout>
   )
