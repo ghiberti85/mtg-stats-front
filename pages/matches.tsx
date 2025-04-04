@@ -5,62 +5,66 @@ const matches = [
     id: 1,
     date: '2025-03-20',
     deck: 'Izzet Phoenix',
+    opponent: 'Lucas P.',
     format: 'Modern',
     result: 'Vitória',
-    opponent: 'João M.',
   },
   {
     id: 2,
     date: '2025-03-18',
     deck: 'Mono Red Aggro',
+    opponent: 'Bruno R.',
     format: 'Standard',
     result: 'Derrota',
-    opponent: 'Carlos S.',
   },
   {
     id: 3,
-    date: '2025-03-16',
+    date: '2025-03-15',
     deck: 'Jeskai Control',
+    opponent: 'João M.',
     format: 'Pioneer',
     result: 'Vitória',
-    opponent: 'Bruna K.',
   },
 ]
 
 export default function MatchesPage() {
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto px-4 py-10">
-        <h1 className="text-3xl font-bold text-white mb-8">Partidas</h1>
+      <div className="max-w-6xl mx-auto px-4 py-10">
+        <h1 className="text-3xl font-bold text-white mb-6">
+          Histórico de Partidas
+        </h1>
 
-        <div className="space-y-4">
-          {matches.map((match) => (
-            <div
-              key={match.id}
-              className="bg-gray-900 rounded-xl p-4 shadow hover:bg-gray-800 transition"
-            >
-              <div className="flex justify-between items-center text-white">
-                <div>
-                  <p className="text-lg font-semibold">{match.deck}</p>
-                  <p className="text-sm text-gray-400">
-                    {match.format} • {match.date}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p
-                    className={`text-sm font-bold ${
-                      match.result === 'Vitória'
-                        ? 'text-green-400'
-                        : 'text-red-400'
-                    }`}
-                  >
-                    {match.result}
-                  </p>
-                  <p className="text-sm text-gray-300">vs {match.opponent}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="overflow-x-auto">
+          <table className="min-w-full table-auto text-sm">
+            <thead>
+              <tr className="bg-gray-800 text-gray-300">
+                <th className="p-3 text-left">Data</th>
+                <th className="p-3 text-left">Deck</th>
+                <th className="p-3 text-left">Adversário</th>
+                <th className="p-3 text-left">Formato</th>
+                <th className="p-3 text-left">Resultado</th>
+              </tr>
+            </thead>
+            <tbody>
+              {matches.map((match) => (
+                <tr
+                  key={match.id}
+                  className={`border-b border-gray-700 ${
+                    match.result === 'Vitória'
+                      ? 'text-green-400'
+                      : 'text-red-400'
+                  }`}
+                >
+                  <td className="p-3">{match.date}</td>
+                  <td className="p-3">{match.deck}</td>
+                  <td className="p-3">{match.opponent}</td>
+                  <td className="p-3">{match.format}</td>
+                  <td className="p-3 font-semibold">{match.result}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </Layout>
