@@ -3,6 +3,7 @@ import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import { useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import Layout from '@/components/Layout'
+import MatchSummaryChart from '../src/components/MatchSummaryChart'
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const supabase = createPagesServerClient(ctx)
@@ -51,6 +52,8 @@ export default function Dashboard({ email }: { email: string }) {
           <p className="text-lg text-gray-300 mb-8">
             Você está logado com sucesso!
           </p>
+
+          <MatchSummaryChart />
         </div>
       </div>
     </Layout>
