@@ -3,7 +3,9 @@ import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import { useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import Layout from '@/components/Layout'
-import MatchSummaryChart from '../src/components/MatchSummaryChart'
+import MatchSummaryChart from '@/components/MatchSummaryChart'
+import WinRatePieChart from '@/components/WinRatePieChart'
+import TopDecksBarChart from '@/components/TopDecksBarChart'
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const supabase = createPagesServerClient(ctx)
@@ -36,26 +38,26 @@ export default function Dashboard({ email }: { email: string }) {
       const refresh_token = params.get('refresh_token')
 
       if (access_token && refresh_token) {
-        supabase.auth.setSession({
-          access_token,
-          refresh_token,
-        })
+        supabase.auth.setSession({ access_token, refresh_token })
       }
     }
   }, [])
 
   return (
-    <Layout>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-950 text-white px-4">
-        <div className="w-full max-w-2xl text-center">
-          <h1 className="text-4xl font-bold mb-4">Bem-vindo(a)👋, {email}!</h1>
-          <p className="text-lg text-gray-300 mb-8">
-            Você está logado com sucesso!
-          </p>
-
-          <MatchSummaryChart />
-        </div>
+    <div className="bg-gray-950 text-white min-h-screen">
+      {/* Hero no topo */}
+      <div className="w-full bg-gray-900 py-10 px-6 text-center shadow">
+        <h1 className="text-4xl font-bold mb-2">Bem-vindo(a), {email} 👋</h1>
+        <p className="text-gray-400 text-lg">Veja um resumo rápido da sua performance</p>
       </div>
-    </Layout>
+
+      <Layout>
+        <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <MatchSummaryChart />
+          <WinRatePieChart victories={12} defeats={5} />
+          <TopDecksBarChart />
+        </div>
+      </Layout>
+    </div>
   )
 }
