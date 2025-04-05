@@ -19,7 +19,7 @@ const data = [
 export default function WinRatePerDeckChart() {
   return (
     <div className="bg-gray-900 p-6 rounded-2xl shadow-md">
-      <h2 className="text-xl font-semibold mb-4 text-white text-center">
+      <h2 className="text-xl font-semibold mb-8 text-white text-center">
         Taxa de vitória por deck
       </h2>
       <ResponsiveContainer width="100%" height={250}>

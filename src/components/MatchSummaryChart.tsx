@@ -19,7 +19,7 @@ const data = [
 export default function MatchSummaryChart() {
   return (
     <div className="bg-gray-800 rounded-lg p-6 shadow-md w-full max-w-md flex flex-col items-center">
-      <h2 className="text-xl font-semibold text-white mb-4 text-center">
+      <h2 className="text-xl font-semibold text-white mb-8 text-center">
         Partidas por Mês
       </h2>
 

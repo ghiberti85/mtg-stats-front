@@ -18,7 +18,7 @@ export default function WinRatePieChart({ victories, defeats }: Props) {
 
   return (
     <div className="bg-gray-800 rounded-lg p-6 shadow-md w-full max-w-md flex flex-col items-center">
-      <h2 className="text-white text-lg font-semibold mb-2">Taxa de Vitória</h2>
+      <h2 className="text-white text-lg font-semibold mb-8">Taxa de Vitória</h2>
       <ResponsiveContainer width="100%" height={200}>
         <PieChart>
           <Pie

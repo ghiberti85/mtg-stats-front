@@ -18,7 +18,7 @@ const data = [
 export default function TopDecksBarChart() {
   return (
     <div className="bg-gray-900 p-6 rounded-2xl shadow-md">
-      <h2 className="text-xl font-semibold mb-4 text-white text-center">
+      <h2 className="text-xl font-semibold mb-8 text-white text-center">
         Top 5 decks mais usados
       </h2>
       <ResponsiveContainer width="100%" height={250}>
