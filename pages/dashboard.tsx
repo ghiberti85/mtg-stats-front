@@ -6,6 +6,8 @@ import Layout from '@/components/Layout'
 import MatchSummaryChart from '@/components/MatchSummaryChart'
 import WinRatePieChart from '@/components/WinRatePieChart'
 import TopDecksBarChart from '@/components/TopDecksBarChart'
+import WinRatePerDeckChart from '@/components/WinRatePerDeckChart'
+import MostPlayedFormatsChart from '@/components/MostPlayedFormatsChart'
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const supabase = createPagesServerClient(ctx)
@@ -48,7 +50,9 @@ export default function Dashboard({ email }: { email: string }) {
       {/* Hero no topo */}
       <div className="w-full bg-gray-900 py-10 px-6 text-center shadow">
         <h1 className="text-4xl font-bold mb-2">Bem-vindo(a), {email} 👋</h1>
-        <p className="text-gray-400 text-lg">Veja um resumo rápido da sua performance</p>
+        <p className="text-gray-400 text-lg">
+          Veja um resumo rápido da sua performance
+        </p>
       </div>
 
       <Layout>
@@ -56,6 +60,8 @@ export default function Dashboard({ email }: { email: string }) {
           <MatchSummaryChart />
           <WinRatePieChart victories={12} defeats={5} />
           <TopDecksBarChart />
+          <WinRatePerDeckChart />
+          <MostPlayedFormatsChart />
         </div>
       </Layout>
     </div>
