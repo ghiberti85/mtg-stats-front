@@ -51,38 +51,54 @@ export default function Dashboard({ email }: { email: string }) {
 
   return (
     <Layout>
-      <section className="bg-gray-950 text-white py-8 px-4 min-h-screen">
+      <section className="bg-gray-950 text-white py-10 px-4 min-h-screen">
         <div className="max-w-4xl mx-auto text-center mb-10">
-          <h1 className="text-4xl font-bold mb-2">Bem-vindo(a) 👋, {email}!</h1>
-          <p className="text-lg text-gray-300">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2">
+            Bem-vindo(a) 👋, <span className="text-indigo-400">{email}</span>
+          </h1>
+          <p className="text-base sm:text-lg text-gray-300">
             Aqui estão os resumos das suas partidas recentes.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          <div className="bg-gray-900 p-6 rounded-2xl shadow">
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 max-w-7xl mx-auto px-2">
+          <ChartCard title="Partidas por Mês">
             <MatchSummaryChart />
-          </div>
-
-          <div className="bg-gray-900 p-6 rounded-2xl shadow">
+          </ChartCard>
+          <ChartCard title="Taxa de Vitória">
             <WinRatePieChart victories={12} defeats={5} />
-          </div>
-
-          <div className="bg-gray-900 p-6 rounded-2xl shadow">
+          </ChartCard>
+          <ChartCard title="Taxa de Vitória por Deck">
             <WinRatePerDeckChart />
-          </div>
-
-          <div className="bg-gray-900 p-6 rounded-2xl shadow">
+          </ChartCard>
+          <ChartCard title="Formatos Mais Jogados">
             <MostPlayedFormatsChart />
-          </div>
-          <div className="bg-gray-900 p-6 rounded-2xl shadow">
+          </ChartCard>
+          <ChartCard title="Evolução da Taxa de Vitória">
             <WinRateOverTimeChart />
-          </div>
-          <div className="bg-gray-900 p-6 rounded-2xl shadow">
+          </ChartCard>
+          <ChartCard title="Decks Mais Utilizados">
             <MostUsedDecksChart />
-          </div>
+          </ChartCard>
         </div>
       </section>
     </Layout>
+  )
+}
+
+function ChartCard({
+  children,
+  title,
+}: {
+  children: React.ReactNode
+  title: string
+}) {
+  return (
+    <div className="bg-gray-900 min-h-[360px] p-4 sm:p-6 rounded-2xl shadow-lg flex flex-col">
+      <h2 className="text-white text-lg font-semibold mb-4 text-center">
+        {title}
+      </h2>
+      <div className="flex-grow w-full h-full">{children}</div>
+    </div>
   )
 }

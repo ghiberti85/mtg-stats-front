@@ -17,8 +17,7 @@ export default function WinRatePieChart({ victories, defeats }: Props) {
   const winRate = total > 0 ? ((victories / total) * 100).toFixed(1) : '0'
 
   return (
-    <div className="bg-gray-800 rounded-lg p-6 shadow-md w-full max-w-md flex flex-col items-center">
-      <h2 className="text-white text-lg font-semibold mb-8">Taxa de Vitória</h2>
+    <div className="w-full h-full flex flex-col items-center justify-center">
       <ResponsiveContainer width="100%" height={200}>
         <PieChart>
           <Pie
@@ -39,7 +38,9 @@ export default function WinRatePieChart({ victories, defeats }: Props) {
           <Tooltip formatter={(value) => `${value} partidas`} />
         </PieChart>
       </ResponsiveContainer>
-      <p className="text-center text-white mt-2">{winRate}% de vitória</p>
+      <p className="text-center text-white mt-4 text-sm">
+        {winRate}% de vitória
+      </p>
     </div>
   )
 }
