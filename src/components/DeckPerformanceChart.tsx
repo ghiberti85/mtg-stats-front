@@ -1,23 +1,23 @@
 import {
-  BarChart,
-  Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  CartesianGrid,
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
 import { useMemo } from 'react'
 
-const data = [
-  { name: 'Mono Red', partidas: 22, date: '2025-01-12' },
-  { name: 'Azorius Control', partidas: 17, date: '2025-02-18' },
-  { name: 'Rakdos Midrange', partidas: 14, date: '2025-03-08' },
-  { name: 'Gruul Aggro', partidas: 11, date: '2025-03-29' },
-  { name: 'Dimir Rogues', partidas: 9, date: '2025-04-01' },
-]
+type Props = {
+  data: {
+    date: string
+    winRate: number
+  }[]
+}
 
-export default function TopDecksBarChart() {
+export default function DeckPerformanceChart({ data }: Props) {
   const { range } = useStatsFilter()
 
   const filteredData = useMemo(() => {
@@ -35,16 +35,22 @@ export default function TopDecksBarChart() {
           return true
       }
     })
-  }, [range])
+  }, [data, range])
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={filteredData}>
-        <XAxis dataKey="name" stroke="#ccc" tick={{ fontSize: 11 }} />
+      <LineChart data={filteredData}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+        <XAxis dataKey="date" stroke="#ccc" tick={{ fontSize: 11 }} />
         <YAxis stroke="#ccc" tick={{ fontSize: 11 }} />
         <Tooltip />
-        <Bar dataKey="partidas" fill="#3b82f6" />
-      </BarChart>
+        <Line
+          type="monotone"
+          dataKey="winRate"
+          stroke="#10b981"
+          strokeWidth={2}
+        />
+      </LineChart>
     </ResponsiveContainer>
   )
 }

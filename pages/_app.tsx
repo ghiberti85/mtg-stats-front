@@ -1,6 +1,11 @@
-import '../src/styles/globals.css' // ou ajuste conforme o real path
+import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
+import { StatsFilterProvider } from '@/context/StatsFilterContext'
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <StatsFilterProvider>
+      <Component {...pageProps} />
+    </StatsFilterProvider>
+  )
 }

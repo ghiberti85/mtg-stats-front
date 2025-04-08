@@ -5,8 +5,10 @@ import MostPlayedFormatsChart from '@/components/MostPlayedFormatsChart'
 import WinRateOverTimeChart from '@/components/WinRateOverTimeChart'
 import MostUsedDecksChart from '@/components/MostUsedDecksChart'
 import WinRatePerDeckChart from '@/components/WinRatePerDeckChart'
-import TopDecksBarChart from '@/components/TopDecksBarChart'
+import MatchesByWeekdayChart from '@/components/MatchesByWeekdayChart'
+import AverageWinrateByFormatChart from '@/components/AverageWinrateByFormatChart'
 import CountUp from 'react-countup'
+import { useStatsFilter } from '@/context/StatsFilterContext'
 
 const stats = {
   totalMatches: 42,
@@ -17,11 +19,40 @@ const stats = {
   preferredFormat: 'Modern',
 }
 
+// Removed from the top level and will be moved inside the StatsPage component
+
+// Define the StatsRange type
+type StatsRange = 'all' | 'year' | '3months' | 'month'
+
+const ranges: { label: string; value: StatsRange }[] = [
+  { label: 'Todos', value: 'all' },
+  { label: 'Ano', value: 'year' },
+  { label: '3 Meses', value: '3months' },
+  { label: 'Mês', value: 'month' },
+]
+
 export default function StatsPage() {
+  const { range, setRange } = useStatsFilter()
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 py-10 text-white">
         <h1 className="text-3xl font-bold mb-8">📊 Estatísticas Gerais</h1>
+
+        <div className="flex gap-2 mb-6 flex-wrap">
+          {ranges.map(({ label, value }) => (
+            <button
+              key={value}
+              onClick={() => setRange(value)}
+              className={`px-4 py-2 rounded-lg text-sm border transition ${
+                range === value
+                  ? 'bg-indigo-600 border-indigo-400 text-white'
+                  : 'bg-gray-800 border-gray-700 text-gray-300 hover:border-indigo-500'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
 
         {/* Resumo numérico */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
@@ -60,11 +91,12 @@ export default function StatsPage() {
           <ChartCard title="Decks Mais Utilizados">
             <MostUsedDecksChart />
           </ChartCard>
-          <ChartCard title="Top 5 Decks Mais Usados">
-            <TopDecksBarChart />
+          <ChartCard title="Distribuição por Dia da Semana">
+            <MatchesByWeekdayChart />
           </ChartCard>
-          <ChartCard title="Comparativo de Formatos (Extra)">
-            <MostPlayedFormatsChart />
+
+          <ChartCard title="Winrate por Formato">
+            <AverageWinrateByFormatChart />
           </ChartCard>
         </Section>
 

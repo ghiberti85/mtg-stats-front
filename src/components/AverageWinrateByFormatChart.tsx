@@ -5,19 +5,18 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  CartesianGrid,
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
 import { useMemo } from 'react'
 
 const data = [
-  { name: 'Mono Red', partidas: 22, date: '2025-01-12' },
-  { name: 'Azorius Control', partidas: 17, date: '2025-02-18' },
-  { name: 'Rakdos Midrange', partidas: 14, date: '2025-03-08' },
-  { name: 'Gruul Aggro', partidas: 11, date: '2025-03-29' },
-  { name: 'Dimir Rogues', partidas: 9, date: '2025-04-01' },
+  { format: 'Standard', winRate: 50, date: '2025-01-10' },
+  { format: 'Pioneer', winRate: 65, date: '2025-02-15' },
+  { format: 'Modern', winRate: 70, date: '2025-04-01' },
 ]
 
-export default function TopDecksBarChart() {
+export default function AverageWinrateByFormatChart() {
   const { range } = useStatsFilter()
 
   const filteredData = useMemo(() => {
@@ -40,10 +39,16 @@ export default function TopDecksBarChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={filteredData}>
-        <XAxis dataKey="name" stroke="#ccc" tick={{ fontSize: 11 }} />
-        <YAxis stroke="#ccc" tick={{ fontSize: 11 }} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+        <XAxis dataKey="format" stroke="#ccc" tick={{ fontSize: 11 }} />
+        <YAxis
+          stroke="#ccc"
+          tick={{ fontSize: 11 }}
+          domain={[0, 100]}
+          unit="%"
+        />
         <Tooltip />
-        <Bar dataKey="partidas" fill="#3b82f6" />
+        <Bar dataKey="winRate" fill="#10b981" />
       </BarChart>
     </ResponsiveContainer>
   )

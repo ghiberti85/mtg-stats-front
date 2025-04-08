@@ -7,22 +7,43 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts'
+import { useStatsFilter } from '@/context/StatsFilterContext'
+import { useMemo } from 'react'
 
 const data = [
-  { month: 'Jan', winRate: 60 },
-  { month: 'Feb', winRate: 55 },
-  { month: 'Mar', winRate: 65 },
-  { month: 'Apr', winRate: 50 },
-  { month: 'Mai', winRate: 70 },
+  { month: 'Jan', date: '2025-01-01', winRate: 60 },
+  { month: 'Feb', date: '2025-02-01', winRate: 55 },
+  { month: 'Mar', date: '2025-03-01', winRate: 65 },
+  { month: 'Apr', date: '2025-04-01', winRate: 50 },
+  { month: 'Mai', date: '2025-05-01', winRate: 70 },
 ]
 
 export default function WinRateOverTimeChart() {
+  const { range } = useStatsFilter()
+
+  const filteredData = useMemo(() => {
+    const now = new Date()
+    return data.filter(({ date }) => {
+      const d = new Date(date)
+      switch (range) {
+        case 'month':
+          return d >= new Date(now.getFullYear(), now.getMonth() - 1, 1)
+        case '3months':
+          return d >= new Date(now.getFullYear(), now.getMonth() - 3, 1)
+        case 'year':
+          return d >= new Date(now.getFullYear() - 1, now.getMonth(), 1)
+        default:
+          return true
+      }
+    })
+  }, [range])
+
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <LineChart data={data}>
+      <LineChart data={filteredData}>
         <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-        <XAxis dataKey="month" stroke="#ccc" />
-        <YAxis stroke="#ccc" />
+        <XAxis dataKey="month" stroke="#ccc" tick={{ fontSize: 11 }} />
+        <YAxis stroke="#ccc" tick={{ fontSize: 11 }} />
         <Tooltip />
         <Line
           type="monotone"
