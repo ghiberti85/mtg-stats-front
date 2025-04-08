@@ -9,6 +9,7 @@ import {
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
 import { useMemo } from 'react'
+import { withChartLoading } from '../components/withChartLoading'
 
 const data = [
   { format: 'Standard', winRate: 50, date: '2025-01-10' },
@@ -16,7 +17,7 @@ const data = [
   { format: 'Modern', winRate: 70, date: '2025-04-01' },
 ]
 
-export default function AverageWinrateByFormatChart() {
+function AverageWinrateByFormatChart() {
   const { range } = useStatsFilter()
 
   const filteredData = useMemo(() => {
@@ -53,3 +54,5 @@ export default function AverageWinrateByFormatChart() {
     </ResponsiveContainer>
   )
 }
+
+export default withChartLoading(AverageWinrateByFormatChart)

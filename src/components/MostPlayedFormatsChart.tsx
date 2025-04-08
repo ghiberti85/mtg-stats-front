@@ -8,6 +8,7 @@ import {
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
 import { useMemo } from 'react'
+import { withChartLoading } from '../components/withChartLoading'
 
 const rawData = [
   { name: 'Standard', value: 30, date: '2025-01-20' },
@@ -19,7 +20,7 @@ const rawData = [
 
 const COLORS = ['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#3b82f6']
 
-export default function MostPlayedFormatsChart() {
+function MostPlayedFormatsChart() {
   const { range } = useStatsFilter()
 
   const filteredData = useMemo(() => {
@@ -61,3 +62,5 @@ export default function MostPlayedFormatsChart() {
     </ResponsiveContainer>
   )
 }
+
+export default withChartLoading(MostPlayedFormatsChart)

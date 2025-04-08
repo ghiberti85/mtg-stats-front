@@ -8,6 +8,7 @@ import {
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
 import { useMemo } from 'react'
+import { withChartLoading } from '../components/withChartLoading'
 
 const data = [
   { name: 'Mono Red', partidas: 22, date: '2025-01-12' },
@@ -17,7 +18,7 @@ const data = [
   { name: 'Dimir Rogues', partidas: 9, date: '2025-04-01' },
 ]
 
-export default function TopDecksBarChart() {
+function TopDecksBarChart() {
   const { range } = useStatsFilter()
 
   const filteredData = useMemo(() => {
@@ -48,3 +49,5 @@ export default function TopDecksBarChart() {
     </ResponsiveContainer>
   )
 }
+
+export default withChartLoading(TopDecksBarChart)

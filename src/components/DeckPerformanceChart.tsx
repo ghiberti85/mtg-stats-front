@@ -9,6 +9,7 @@ import {
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
 import { useMemo } from 'react'
+import { withChartLoading } from '../components/withChartLoading'
 
 type Props = {
   data: {
@@ -17,7 +18,7 @@ type Props = {
   }[]
 }
 
-export default function DeckPerformanceChart({ data }: Props) {
+function DeckPerformanceChart({ data }: Props) {
   const { range } = useStatsFilter()
 
   const filteredData = useMemo(() => {
@@ -54,3 +55,5 @@ export default function DeckPerformanceChart({ data }: Props) {
     </ResponsiveContainer>
   )
 }
+
+export default withChartLoading(DeckPerformanceChart)

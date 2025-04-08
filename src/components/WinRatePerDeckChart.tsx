@@ -9,6 +9,7 @@ import {
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
 import { useMemo } from 'react'
+import { withChartLoading } from '../components/withChartLoading'
 
 const data = [
   { deck: 'Mono Red', winRate: 78, date: '2025-01-15' },
@@ -18,7 +19,7 @@ const data = [
   { deck: 'Dimir Rogues', winRate: 47, date: '2025-04-15' },
 ]
 
-export default function WinRatePerDeckChart() {
+function WinRatePerDeckChart() {
   const { range } = useStatsFilter()
 
   const filteredData = useMemo(() => {
@@ -53,3 +54,5 @@ export default function WinRatePerDeckChart() {
     </ResponsiveContainer>
   )
 }
+
+export default withChartLoading(WinRatePerDeckChart)

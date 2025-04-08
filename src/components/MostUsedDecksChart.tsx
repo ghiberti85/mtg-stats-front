@@ -9,6 +9,7 @@ import {
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
 import { useMemo } from 'react'
+import { withChartLoading } from '../components/withChartLoading'
 
 const data = [
   { deck: 'Mono Red', uses: 14, date: '2025-01-10' },
@@ -17,7 +18,7 @@ const data = [
   { deck: 'Selesnya Enchantments', uses: 6, date: '2025-04-03' },
 ]
 
-export default function MostUsedDecksChart() {
+function MostUsedDecksChart() {
   const { range } = useStatsFilter()
 
   const filteredData = useMemo(() => {
@@ -54,3 +55,5 @@ export default function MostUsedDecksChart() {
     </ResponsiveContainer>
   )
 }
+
+export default withChartLoading(MostUsedDecksChart)

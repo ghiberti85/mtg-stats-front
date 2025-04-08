@@ -9,6 +9,7 @@ import {
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
 import { useMemo } from 'react'
+import { withChartLoading } from '../components/withChartLoading'
 
 const data = [
   { month: 'Jan', date: '2025-01-01', winRate: 60 },
@@ -18,7 +19,7 @@ const data = [
   { month: 'Mai', date: '2025-05-01', winRate: 70 },
 ]
 
-export default function WinRateOverTimeChart() {
+function WinRateOverTimeChart() {
   const { range } = useStatsFilter()
 
   const filteredData = useMemo(() => {
@@ -55,3 +56,5 @@ export default function WinRateOverTimeChart() {
     </ResponsiveContainer>
   )
 }
+
+export default withChartLoading(WinRateOverTimeChart)

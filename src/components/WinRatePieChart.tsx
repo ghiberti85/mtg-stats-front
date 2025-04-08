@@ -7,13 +7,14 @@ import {
   Legend,
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
+import { withChartLoading } from '../components/withChartLoading'
 
 type Props = {
   victories: number
   defeats: number
 }
 
-export default function WinRatePieChart({ victories, defeats }: Props) {
+function WinRatePieChart({ victories, defeats }: Props) {
   const { range } = useStatsFilter()
 
   // Simulando dados com base no range selecionado
@@ -69,3 +70,5 @@ export default function WinRatePieChart({ victories, defeats }: Props) {
     </div>
   )
 }
+
+export default withChartLoading(WinRatePieChart)

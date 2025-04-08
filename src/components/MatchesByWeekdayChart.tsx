@@ -9,6 +9,7 @@ import {
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
 import { useMemo } from 'react'
+import { withChartLoading } from '../components/withChartLoading'
 
 const fullData = [
   { day: 'Dom', matches: 5, date: '2025-04-07' },
@@ -20,7 +21,7 @@ const fullData = [
   { day: 'Sáb', matches: 6, date: '2025-03-12' },
 ]
 
-export default function MatchesByWeekdayChart() {
+function MatchesByWeekdayChart() {
   const { range } = useStatsFilter()
 
   const filteredData = useMemo(() => {
@@ -64,3 +65,5 @@ export default function MatchesByWeekdayChart() {
     </ResponsiveContainer>
   )
 }
+
+export default withChartLoading(MatchesByWeekdayChart)

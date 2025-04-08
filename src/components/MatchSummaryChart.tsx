@@ -8,7 +8,9 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
-import { useMemo } from 'react'
+import { useMemo, useEffect, useState } from 'react'
+import ChartSkeleton from './ChartSkeleton'
+import { withChartLoading } from '../components/withChartLoading'
 
 // Dados completos mockados
 const data = [
@@ -19,8 +21,9 @@ const data = [
   { name: 'Mai', date: '2025-05-01', partidas: 6 },
 ]
 
-export default function MatchSummaryChart() {
+function MatchSummaryChart() {
   const { range } = useStatsFilter()
+  const [loading, setLoading] = useState(true)
 
   const filteredData = useMemo(() => {
     const now = new Date()
@@ -40,6 +43,14 @@ export default function MatchSummaryChart() {
     })
   }, [range])
 
+  useEffect(() => {
+    setLoading(true)
+    const timeout = setTimeout(() => setLoading(false), 500) // simula carregamento
+    return () => clearTimeout(timeout)
+  }, [range])
+
+  if (loading) return <ChartSkeleton />
+
   return (
     <div className="w-full h-full">
       <ResponsiveContainer width="100%" height="100%">
@@ -53,3 +64,5 @@ export default function MatchSummaryChart() {
     </div>
   )
 }
+
+export default withChartLoading(MatchSummaryChart)
