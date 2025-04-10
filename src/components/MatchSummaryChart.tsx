@@ -1,4 +1,5 @@
 'use client'
+
 import {
   BarChart,
   Bar,
@@ -6,47 +7,68 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  CartesianGrid,
 } from 'recharts'
 import { useStatsFilter } from '@/context/StatsFilterContext'
-import { useMemo, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ChartSkeleton from './ChartSkeleton'
-import { withChartLoading } from '../components/withChartLoading'
+import { getMatches } from '@/services/getMatches'
+import { getCurrentUserId, getToken } from '../utils/authHelpers' // caso use helpers
+import { format } from 'date-fns'
 
-// Dados completos mockados
-const data = [
-  { name: 'Jan', date: '2025-01-01', partidas: 10 },
-  { name: 'Fev', date: '2025-02-01', partidas: 14 },
-  { name: 'Mar', date: '2025-03-01', partidas: 8 },
-  { name: 'Abr', date: '2025-04-01', partidas: 12 },
-  { name: 'Mai', date: '2025-05-01', partidas: 6 },
-]
+type MatchSummaryData = {
+  name: string
+  partidas: number
+}
 
-function MatchSummaryChart() {
+type Match = {
+  match_date: string
+  // outros campos se necessário
+}
+
+export default function MatchSummaryChart() {
   const { range } = useStatsFilter()
+  const [data, setData] = useState<MatchSummaryData[]>([])
   const [loading, setLoading] = useState(true)
 
-  const filteredData = useMemo(() => {
-    const now = new Date()
-    return data.filter(({ date }) => {
-      const matchDate = new Date(date)
-
-      switch (range) {
-        case 'month':
-          return matchDate >= new Date(now.getFullYear(), now.getMonth() - 1, 1)
-        case '3months':
-          return matchDate >= new Date(now.getFullYear(), now.getMonth() - 3, 1)
-        case 'year':
-          return matchDate >= new Date(now.getFullYear() - 1, now.getMonth(), 1)
-        default:
-          return true
-      }
-    })
-  }, [range])
-
   useEffect(() => {
-    setLoading(true)
-    const timeout = setTimeout(() => setLoading(false), 500) // simula carregamento
-    return () => clearTimeout(timeout)
+    async function fetchData() {
+      setLoading(true)
+      try {
+        const token = getToken()
+        const playerId = getCurrentUserId()
+
+        if (!token || !playerId) {
+          console.error('Token or Player ID is missing')
+          setLoading(false)
+          return
+        }
+
+        const matches = await getMatches()
+
+        const groupedByMonth = matches.reduce(
+          (acc: Record<string, number>, match: Match) => {
+            const month = format(new Date(match.match_date), 'MMM')
+            acc[month] = (acc[month] || 0) + 1
+            return acc
+          },
+          {}
+        )
+
+        const result = Object.entries(groupedByMonth).map(([month, count]) => ({
+          name: month,
+          partidas: count,
+        }))
+
+        setData(result)
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
   }, [range])
 
   if (loading) return <ChartSkeleton />
@@ -54,7 +76,8 @@ function MatchSummaryChart() {
   return (
     <div className="w-full h-full">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={filteredData}>
+        <BarChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#444" />
           <XAxis dataKey="name" stroke="#ccc" tick={{ fontSize: 11 }} />
           <YAxis stroke="#ccc" tick={{ fontSize: 11 }} />
           <Tooltip />
@@ -64,5 +87,3 @@ function MatchSummaryChart() {
     </div>
   )
 }
-
-export default withChartLoading(MatchSummaryChart)
