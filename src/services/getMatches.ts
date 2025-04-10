@@ -1,28 +1,19 @@
-import { supabase } from '@/lib/supabase'
-
-export interface Match {
-  id: string
-  player_id: string
-  deck_id: string
-  format: string
-  result: 'win' | 'loss' | 'draw'
-  duration: number
-  match_date: string
-}
+import { getToken, getCurrentUserId } from '@/utils/authHelpers'
+import { Match } from '../types/match'
 
 export async function getMatches(): Promise<Match[]> {
-  const { data: userData } = await supabase.auth.getUser()
-  const playerId = userData?.user?.id
+  const token = await getToken()
+  const playerId = await getCurrentUserId()
 
-  if (!playerId) {
-    throw new Error('Player ID não encontrado')
+  if (!token || !playerId) {
+    throw new Error('Token ou Player ID não encontrado')
   }
 
   const res = await fetch(
     `http://localhost:3000/matches?playerId=${playerId}`,
     {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        Authorization: `Bearer ${token}`,
       },
     }
   )

@@ -13,17 +13,13 @@ import { useStatsFilter } from '@/context/StatsFilterContext'
 import { useEffect, useState } from 'react'
 import ChartSkeleton from './ChartSkeleton'
 import { getMatches } from '@/services/getMatches'
-import { getCurrentUserId, getToken } from '../utils/authHelpers' // caso use helpers
 import { format } from 'date-fns'
+import { Match } from '@/types/match'
+import { supabase } from '@/lib/supabase'
 
 type MatchSummaryData = {
   name: string
   partidas: number
-}
-
-type Match = {
-  match_date: string
-  // outros campos se necessário
 }
 
 export default function MatchSummaryChart() {
@@ -34,12 +30,17 @@ export default function MatchSummaryChart() {
   useEffect(() => {
     async function fetchData() {
       setLoading(true)
-      try {
-        const token = getToken()
-        const playerId = getCurrentUserId()
 
-        if (!token || !playerId) {
-          console.error('Token or Player ID is missing')
+      try {
+        const { data: userData, error: userError } =
+          await supabase.auth.getUser()
+        const { data: sessionData } = await supabase.auth.getSession()
+
+        const playerId = userData?.user?.id
+        const token = sessionData?.session?.access_token
+
+        if (userError || !playerId || !token) {
+          console.error('Token ou Player ID não encontrado:', userError)
           setLoading(false)
           return
         }
@@ -62,7 +63,7 @@ export default function MatchSummaryChart() {
 
         setData(result)
       } catch (err) {
-        console.error(err)
+        console.error('Erro ao buscar partidas:', err)
       } finally {
         setLoading(false)
       }
