@@ -1,35 +1,43 @@
-import { useEffect } from 'react'
+'use client'
+
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 
-export default function CallbackPage() {
+export default function AuthCallbackPage() {
   const router = useRouter()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const handleAuth = async () => {
-      try {
-        const { error } = await supabase.auth.getSession()
+    const exchangeCode = async () => {
+      const code = router.query.code as string
 
-        if (error) {
-          console.error('❌ Erro ao obter sessão:', error)
-          router.push('/login')
-          return
-        }
+      if (!code) return
 
-        // ✅ A sessão já foi criada automaticamente, agora redireciona
-        router.push('/dashboard')
-      } catch (err) {
-        console.error('❌ Erro inesperado:', err)
-        router.push('/login')
+      const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+
+      if (error) {
+        console.error('Erro ao trocar código por sessão:', error)
+        setLoading(false)
+        return
       }
+
+      console.log('✅ Sessão autenticada:', data.session)
+
+      // Redireciona para o dashboard
+      router.push('/dashboard')
     }
 
-    handleAuth()
+    exchangeCode()
   }, [router])
 
   return (
-    <div className="h-screen flex items-center justify-center text-white bg-gray-900">
-      <p>Autenticando...</p>
-    </div>
+    <main className="h-screen flex items-center justify-center">
+      {loading ? (
+        <p>Autenticando com link mágico...</p>
+      ) : (
+        <p className="text-red-500">Erro na autenticação. Tente novamente.</p>
+      )}
+    </main>
   )
 }
